@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VndingMachineAppTDD_v2", "VndingMachineAppTDD_v2\VndingMachineAppTDD_v2.csproj", "{6581C292-55CB-4841-9258-D3A9400EE979}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachineAppTDD_v2", "VndingMachineAppTDD_v2\VendingMachineAppTDD_v2.csproj", "{6581C292-55CB-4841-9258-D3A9400EE979}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
