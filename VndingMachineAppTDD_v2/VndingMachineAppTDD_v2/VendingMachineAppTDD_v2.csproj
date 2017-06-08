@@ -54,12 +54,10 @@
     <Compile Include="Models\CoinValidator.cs" />
     <Compile Include="Models\ProductValidator.cs" />
     <Compile Include="Models\TransactionValidator.cs" />
-    <Compile Include="VendingMachineAppTests.cs" />
+    <Compile Include="Tests\VendingMachineAppTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tests\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>

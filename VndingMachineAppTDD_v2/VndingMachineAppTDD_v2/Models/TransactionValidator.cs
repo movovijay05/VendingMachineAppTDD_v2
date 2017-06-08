@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,14 +16,16 @@ namespace VndingMachineAppTDD_v2.Models
         {
             double totalPriceOfTransaction = 0.00;
             productNamesAndPrices = ProductDetailsEnum.getProductDetails();
+            coinNamesAndValues = CoinDetailsEnum.getCoinDetails();
+
             for (int i = 0; i < itemizedInputList.Count; i++)
             {
                 double itemPrice = 0.00;
-                if (type == 1)
+                if (type == 1)  //calculating the price of a product
                 {
                     itemPrice = productNamesAndPrices[itemizedInputList.ElementAt(i).Key];
                 }
-                else
+                else  // calculating the price of coins
                 {
                     itemPrice = coinNamesAndValues[itemizedInputList.ElementAt(i).Key];
                     //Console.WriteLine(genFun.printAStringIntDictionary(vCEnum.totalRemainingCashInVM));
@@ -30,6 +33,7 @@ namespace VndingMachineAppTDD_v2.Models
                 double itemQuantity = itemizedInputList.ElementAt(i).Value;
                 totalPriceOfTransaction += (itemQuantity * itemPrice);
             }
+            Trace.WriteLine(totalPriceOfTransaction.ToString());
             return totalPriceOfTransaction;
         }
     }

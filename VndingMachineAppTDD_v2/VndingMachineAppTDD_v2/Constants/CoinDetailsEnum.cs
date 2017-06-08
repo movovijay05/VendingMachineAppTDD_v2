@@ -45,5 +45,18 @@ namespace VndingMachineAppTDD_v2.Constants
 
         public static List<string> CoinNames = new List<string> { QuartersName, DimesName, NickelsName };
         public static List<double> CoinValues = new List<double> { QuartersValue, DimesValue, NickelsValue };
+
+        public static Dictionary<string, double> getCoinDetails()
+        {
+            Dictionary<string, double> coinNamesAndValues = new Dictionary<string, double>();
+            if (CoinDetailsEnum.CoinNames.Count == CoinDetailsEnum.CoinValues.Count)
+            {
+                for (int i = 0; i < CoinDetailsEnum.CoinNames.Count; i++)
+                {
+                    coinNamesAndValues.Add(CoinDetailsEnum.CoinNames[i], CoinDetailsEnum.CoinValues[i]);
+                }
+            }
+            return coinNamesAndValues;
+        }
     }
 }
