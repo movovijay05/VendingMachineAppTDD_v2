@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Constants\CoinDetailsEnum.cs" />
     <Compile Include="Constants\ProductDetailsEnum.cs" />
+    <Compile Include="Constants\VendingMachineCashEnum.cs" />
     <Compile Include="Functions\GenericDictionaryFunctions.cs" />
     <Compile Include="Models\CoinValidator.cs" />
     <Compile Include="Models\ProductValidator.cs" />
