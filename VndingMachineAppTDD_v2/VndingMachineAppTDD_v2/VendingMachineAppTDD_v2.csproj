@@ -50,8 +50,13 @@
   <ItemGroup>
     <Compile Include="Constants\CoinDetailsEnum.cs" />
     <Compile Include="Constants\ProductDetailsEnum.cs" />
+    <Compile Include="Functions\GenericDictionaryFunctions.cs" />
     <Compile Include="Models\CoinValidator.cs" />
-    <Compile Include="VendingMachineAppTests.cs" />
+    <Compile Include="Models\ProductValidator.cs" />
+    <Compile Include="Models\TransactionValidator.cs" />
+    <Compile Include="Tests\GenericDictionaryFunctionsTest.cs" />
+    <Compile Include="Tests\ProductTests.cs" />
+    <Compile Include="Tests\CoinTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
