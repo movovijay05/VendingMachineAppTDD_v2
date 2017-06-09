@@ -55,7 +55,9 @@
     <Compile Include="Models\CoinValidator.cs" />
     <Compile Include="Models\ProductValidator.cs" />
     <Compile Include="Models\TransactionValidator.cs" />
-    <Compile Include="Tests\VendingMachineAppTests.cs" />
+    <Compile Include="Tests\CoinTests.cs" />
+    <Compile Include="Tests\TransactionTests.cs" />
+    <Compile Include="Tests\GenericTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

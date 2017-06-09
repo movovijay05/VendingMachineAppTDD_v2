@@ -14,6 +14,11 @@ namespace VndingMachineAppTDD_v2.Models
         GenericDictionaryFunctions genFun = new GenericDictionaryFunctions();
         Dictionary<string, double> productNamesAndPrices = new Dictionary<string, double>();
         Dictionary<string, double> coinNamesAndValues = new Dictionary<string, double>();
+        public double calculateBalance(double number1, double number2)
+        {
+            double balance = Math.Round(number2 - number1, 2);
+            return balance;
+        }
         public double calculateTotalPriceOfASingleUserTransaction(Dictionary<string, int> itemizedInputList, Int32 type)
         {
             double totalPriceOfTransaction = 0.00;
@@ -76,6 +81,51 @@ namespace VndingMachineAppTDD_v2.Models
             vCEnum.changeToBeGivenToTheUser = remainingChangeToBeGivenToTheUser(CoinDetailsEnum.NickelsValue, CoinDetailsEnum.NickelsName, vCEnum);
             Trace.WriteLine("1:" + genFun.printAStringIntDictionary(vCEnum.numberOfNickelsDimesAndQuartersRequiredToMakeChange));
             return vCEnum.numberOfNickelsDimesAndQuartersRequiredToMakeChange;
+        }
+
+        public bool checkIfThereisEnoughCashInVMAndUpdateRemainingCash(VendingMachineCashEnum vCEnum)
+        {
+            bool isThereEnoughCashInVMToTendChange = true;
+            vCEnum.numberOfNickelsDimesAndQuartersRequiredToMakeChange = calculateTheNumberOfNickelsDimesAndQuartersRequiredToMakeChange(vCEnum);
+            if (vCEnum.numberOfNickelsDimesAndQuartersRequiredToMakeChange.Count.Equals(vCEnum.totalRemainingCashInVM))
+            {
+                foreach (int i in Enumerable.Range(0, vCEnum.numberOfNickelsDimesAndQuartersRequiredToMakeChange.Count - 1))
+                {
+                    if (vCEnum.totalRemainingCashInVM.ElementAt(i).Value < vCEnum.numberOfNickelsDimesAndQuartersRequiredToMakeChange.ElementAt(i).Value)
+                    {
+                        isThereEnoughCashInVMToTendChange = false;
+                    }
+                }
+            }
+            return isThereEnoughCashInVMToTendChange;
+        }
+
+        public string checkIfChangeNeedsToBeProvidedByVMOrUserNeedsToInputMoreCoins(VendingMachineCashEnum vCEnum)
+        {
+            String messageToBeDisplayed = "";
+            vCEnum.balanceToBeDisplayed = calculateBalance(vCEnum.totalPriceOfTransaction, vCEnum.totalValueOfCoinsInsertedByTheUser);
+            if (vCEnum.totalPriceOfTransaction > vCEnum.totalValueOfCoinsInsertedByTheUser)
+            {
+                messageToBeDisplayed = "Please pay the remanining balance of $" + vCEnum.balanceToBeDisplayed.ToString();
+            }
+            else if (vCEnum.totalPriceOfTransaction < vCEnum.totalValueOfCoinsInsertedByTheUser)
+            {
+                vCEnum.changeToBeGivenToTheUser = vCEnum.totalValueOfCoinsInsertedByTheUser - vCEnum.totalPriceOfTransaction;
+                if (checkIfThereisEnoughCashInVMAndUpdateRemainingCash(vCEnum) == true)
+                {
+                    messageToBeDisplayed = "Thanks for paying!!! Dispensing change to the amount of $" + vCEnum.balanceToBeDisplayed;//+ "\n Remaining Cash in VM:" + genFun.printAStringIntDictionary(vCEnum.totalRemainingCashInVM);
+                }
+                else
+                {
+                    messageToBeDisplayed = "Please tend exact change. Please collect all the coins you deposited";
+                }
+            }
+            else
+            {
+                messageToBeDisplayed = "Thanks for paying!!! Please collect the product";
+            }
+            Trace.WriteLine(messageToBeDisplayed);
+            return messageToBeDisplayed;
         }
     }
 }

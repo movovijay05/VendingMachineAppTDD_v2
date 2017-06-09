@@ -5,65 +5,14 @@ using VndingMachineAppTDD_v2.Functions;
 using System.Collections.Generic;
 using VndingMachineAppTDD_v2.Constants;
 
-namespace VendingMachineAppTDD_v2
+namespace VndingMachineAppTDD_v2.Tests
 {
     [TestClass]
-    public class VendingMachineAppTests
+    public class TransactionTests
     {
-        CoinValidator cv = new CoinValidator();
         TransactionValidator tv = new TransactionValidator();
         VendingMachineCashEnum vCEnum = new VendingMachineCashEnum();
-
-        [TestMethod]
-        public void testifVMAcceptsOnlyNickelsDimesAndQuarters()
-        {
-            Assert.IsTrue(cv.isValidCoinType(2));
-            Assert.IsTrue(cv.isValidCoinType(3));
-            Assert.IsTrue(cv.isValidCoinType(4));
-        }
-        [TestMethod]
-        public void testifVMAcceptsOnlyCoinsWithValidDimensions()
-        {
-            Assert.IsTrue(cv.isValidCoinDimensions(5.00, "Weight", "grams"));
-            Assert.IsTrue(cv.isValidCoinDimensions(1.75, "Thickness", "mm"));
-            Assert.IsTrue(cv.isValidCoinDimensions(0.71, "Diameter", "inches"));
-        }
-
         GenericDictionaryFunctions genFun = new GenericDictionaryFunctions();
-        [TestMethod]
-        public void testIfAStringDictionaryPrintsCorrectly()
-        {
-            Dictionary<string, int> checkStringDictOutput = new Dictionary<string, int>();
-            checkStringDictOutput.Add("Cola", 3);
-            Assert.AreEqual("Cola:3", genFun.printAStringIntDictionary(checkStringDictOutput));
-        }
-        [TestMethod]
-        public void testingIfTwoStringIntDictionariesAreEqualFunction()
-        {
-            Dictionary<string, int> checkStringDict1 = new Dictionary<string, int>();
-            checkStringDict1.Add("Cola", 3);
-            checkStringDict1.Add("Chips", 2);
-
-            Dictionary<string, int> checkStringDict2 = new Dictionary<string, int>();
-            checkStringDict2.Add("Cola", 3);
-            checkStringDict2.Add("Chips", 2);
-
-            Assert.IsTrue( genFun.checkIfTwoStringIntDictionariesAreIdenticalWithoutSorting(checkStringDict1, checkStringDict2));
-        }
-
-        [TestMethod]
-        public void testingIfTwoStringDoubleDictionariesAreEqualFunction()
-        {
-            Dictionary<string, Double> checkStringDict1 = new Dictionary<string, Double>();
-            checkStringDict1.Add("Cola", 3.10);
-            checkStringDict1.Add("Chips", 2.25);
-
-            Dictionary<string, Double> checkStringDict2 = new Dictionary<string, Double>();
-            checkStringDict2.Add("Cola", 3.10);
-            checkStringDict2.Add("Chips", 2.25);
-
-            Assert.IsTrue(genFun.checkIfTwoStringDoubleDictionariesAreIdenticalWithoutSorting(checkStringDict1, checkStringDict2));
-        }
 
         [TestMethod]
         public void testTotalPriceOfASingleUserTransactionInTermsOfProducts()
@@ -104,6 +53,19 @@ namespace VendingMachineAppTDD_v2
 
             vCEnum.numberOfNickelsDimesAndQuartersRequiredToMakeChange = tv.calculateTheNumberOfNickelsDimesAndQuartersRequiredToMakeChange(vCEnum);
             Assert.IsTrue(genFun.checkIfTwoStringIntDictionariesAreIdenticalWithoutSorting(checkTheNumberOfNickelsDimesAndQuartersRequired, vCEnum.numberOfNickelsDimesAndQuartersRequiredToMakeChange));
+        }
+
+        [TestMethod]
+        public void testMessageToBeDisplayOnTheVM()
+        {
+            vCEnum.totalPriceOfTransaction = 2.40;
+            vCEnum.totalValueOfCoinsInsertedByTheUser = 3.00;
+            String messageToBeDisplayed;
+            messageToBeDisplayed = "Thanks for paying!!! Dispensing change to the amount of $" + vCEnum.balanceToBeDisplayed;//+ "\n Remaining Cash in VM:" + genFun.printAStringIntDictionary(vCEnum.totalRemainingCashInVM);
+            //messageToBeDisplayed = "Please tend exact change. Please collect all the coins you deposited";
+            //messageToBeDisplayed = "Thanks for paying!!! Please collect the product";
+
+            Assert.AreEqual(messageToBeDisplayed, tv.checkIfChangeNeedsToBeProvidedByVMOrUserNeedsToInputMoreCoins(vCEnum));
         }
     }
 }
